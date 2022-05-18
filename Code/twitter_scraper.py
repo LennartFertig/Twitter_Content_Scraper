@@ -1,21 +1,26 @@
-#based on this tutorial https://www.simonlindgren.com/notes/2017/11/7/scrape-tweets-without-using-the-api
+#based on this tutorial https://medium.com/dataseries/how-to-scrape-millions-of-tweets-using-snscrape-195ee3594721
 
-import twint
+# importing libraries and packages
+import snscrape.modules.twitter as sntwitter
 import pandas as pd
 
-def get_tweets(username):
-    # Configure
-    c = twint.Config()
-    c.Limit = 1000
-    c.Username = username
-    c.Store_csv = True
-    # Run
-    twint.run.Search(c)
+def get_tweets(username, number_of_tweets):
+    # Creating list to append tweet data 
+    tweets_list = []
+    # Using TwitterSearchScraper to scrape data and append tweets to list
+    for i,tweet in enumerate(sntwitter.TwitterSearchScraper(f'from:{username}').get_items()): #declare a username 
+        if i>number_of_tweets: #number of tweets you want to scrape
+            break
+        if i % 100 == 0:
+            print(i)
+        tweets_list.append([tweet.date, tweet.id, tweet.content, tweet.user.username, tweet.user.followersCount, tweet.user.location, tweet.replyCount, tweet.retweetCount, tweet.likeCount, tweet.quoteCount, tweet.lang, tweet.hashtags]) #declare the attributes to be returned
+    
+    # Creating a dataframe from the tweets list above 
+    #print(tweets_list)
+    tweets_df = pd.DataFrame(tweets_list, columns=['Datetime', 'Tweet Id', 'Text', 'Username', 'user_followersCount', 'user_location', 'tweet_replyCount', 'tweet_retweetCount', 'tweet_likeCount', 'tweet_quoteCount', 'tweet_lang', 'tweet_hashtags'])
+    #print(tweets_df)
+    tweets_df.to_csv(path_or_buf=f'./data/{username}_last_{number_of_tweets}.csv', sep=';',index=False, line_terminator='\n')
+    tweets_df.to_pickle(f'./data/{username}_last_{number_of_tweets}.pkl')
+    
 
-#get_tweets('elonmusk')
-
-c = twint.Config()
-c.Username = "realDonaldTrump"
-c.Search = "great"
-# Run
-print(twint.run.Search(c))
+get_tweets('elonmusk', 10000)
