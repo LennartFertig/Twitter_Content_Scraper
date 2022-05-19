@@ -17,10 +17,9 @@ def get_tweets(username, number_of_tweets):
     
     # Creating a dataframe from the tweets list above 
     #print(tweets_list)
-    tweets_df = pd.DataFrame(tweets_list, columns=['Datetime', 'Tweet Id', 'Text', 'Username', 'user_followersCount', 'user_location', 'tweet_replyCount', 'tweet_retweetCount', 'tweet_likeCount', 'tweet_quoteCount', 'tweet_lang', 'tweet_hashtags'])
+    tweets_df = pd.DataFrame(tweets_list, columns=['datetime', 'tweet_Id', 'text', 'username', 'user_followersCount', 'user_location', 'tweet_replyCount', 'tweet_retweetCount', 'tweet_likeCount', 'tweet_quoteCount', 'tweet_lang', 'tweet_hashtags'])
     #print(tweets_df)
-    tweets_df.to_csv(path_or_buf=f'./data/{username}_last_{number_of_tweets}.csv', sep=';',index=False, line_terminator='\n')
     tweets_df.to_pickle(f'./data/{username}_last_{number_of_tweets}.pkl')
     
 
-get_tweets('elonmusk', 10000)
+get_tweets('elonmusk', 100)
