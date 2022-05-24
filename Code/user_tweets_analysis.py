@@ -14,7 +14,7 @@ import nltk
 nltk.download('vader_lexicon')
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from nltk.stem import SnowballStemmer
-from sklearn.feature_extraction.text import CountVectorizer
+
 
 def percentage(part,whole):
      return 100 * float(part)/float(whole)
