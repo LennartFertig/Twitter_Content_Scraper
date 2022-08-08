@@ -15,13 +15,12 @@ nltk.download('vader_lexicon')
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from nltk.stem import SnowballStemmer
 
-
 def percentage(part,whole):
      return 100 * float(part)/float(whole)
 
 def create_sentiments(tweets_as_df):
     #Sentiment Analysis
-
+    #tweets = tweets_as_df
     tweets = pd.read_pickle(tweets_as_df)
     #print(tweets.columns)
     for r in range(len(tweets)):
@@ -46,6 +45,7 @@ def create_sentiments(tweets_as_df):
         subjectivity = analysis.sentiment.subjectivity
         tweets.at[r, 'subjectivity_sentiment'] = subjectivity
         
+        
         #print(tweet.text)
         
         if neg > pos:
@@ -59,6 +59,7 @@ def create_sentiments(tweets_as_df):
     
     print(tweets)
     tweets.to_pickle(tweets_as_df)
+    return tweets
         
     
-create_sentiments('data/elonmusk_last_100.pkl')
+#create_sentiments('data/elonmusk_last_100.pkl')

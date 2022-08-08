@@ -19,7 +19,9 @@ def get_tweets(username, number_of_tweets):
     #print(tweets_list)
     tweets_df = pd.DataFrame(tweets_list, columns=['datetime', 'tweet_Id', 'text', 'username', 'user_followersCount', 'user_location', 'tweet_replyCount', 'tweet_retweetCount', 'tweet_likeCount', 'tweet_quoteCount', 'tweet_lang', 'tweet_hashtags'])
     #print(tweets_df)
-    tweets_df.to_pickle(f'./data/{username}_last_{number_of_tweets}.pkl')
+    path_to_save = f'./data/{username}_last_{number_of_tweets}.pkl'
+    tweets_df.to_pickle(path_to_save)
+    return path_to_save
     
 
-get_tweets('elonmusk', 100)
+#get_tweets('elonmusk', 100)

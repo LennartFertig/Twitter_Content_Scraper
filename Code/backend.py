@@ -1,54 +1,23 @@
 import pandas as pd
-from transformers import AutoModel, BertTokenizerFast
-import torch.nn as nn
-import torch
+from twitter_scraper import get_tweets
+from user_tweets_analysis import create_sentiments
 
-class BERT_Arch(nn.Module):
+def backend(twitter_user_name='elonmusk'):
+  number_of_tweets = 500
+  tweets_file_path = get_tweets(twitter_user_name, number_of_tweets)
+  tweets = create_sentiments(tweets_file_path)
+  print(tweets)
+  
+  # estimate subjectivity of user
+  user_subjectivity_value = tweets['subjectivity_sentiment'].mean()
+  if user_subjectivity_value >= 0.7:
+    user_subjectivity = 'subjective'
+  elif user_subjectivity_value < 0.3:
+    user_subjectivity = 'objective'
+  else:
+    user_subjectivity = 'sometimes subjective, sometimes objctive'
+  
+  user_polarity = tweets['negative_positive_sentiment'].mean()
+  print(f'User is {user_subjectivity} and ')
 
-    def __init__(self, bert):
-      
-      super(BERT_Arch, self).__init__()
-
-      self.bert = bert 
-      
-      # dropout layer
-      self.dropout = nn.Dropout(0.1)
-      
-      # relu activation function
-      self.relu =  nn.ReLU()
-
-      # dense layer 1
-      self.fc1 = nn.Linear(768,512)
-      
-      # dense layer 2 (Output layer)
-      self.fc2 = nn.Linear(512,2)
-
-      #softmax activation function
-      self.softmax = nn.LogSoftmax(dim=1)
-
-    #define the forward pass
-    def forward(self, sent_id, mask):
-
-      #pass the inputs to the model  
-      cls_hs = self.bert(sent_id, attention_mask=mask)['pooler_output']
-      x = self.fc1(cls_hs)
-
-      x = self.relu(x)
-
-      x = self.dropout(x)
-
-      # output layer
-      x = self.fc2(x)
-      
-      # apply softmax activation
-      x = self.softmax(x)
-
-      return x
-
-bert = AutoModel.from_pretrained('bert-base-uncased')
-model = BERT_Arch(bert)
-
-#load weights of best model
-path = 'saved_weights.pt'
-model.load_state_dict(torch.load(path))
-model.
+backend()
