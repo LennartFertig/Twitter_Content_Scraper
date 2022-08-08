@@ -6,9 +6,9 @@ import spacy
 import en_core_web_sm
 import nltk
 
-def clean_tweets(data_path, language):
+def clean_tweets(data_path, language='en'):
     tweets = pd.read_pickle(data_path)
-    tweets = tweets.head(5)
+    #tweets = tweets.head(10)
     
     #use and configure spacy and nltk for text cleaning
     #nlp = spacy.load('en_core_web_sm')
@@ -29,18 +29,34 @@ def clean_tweets(data_path, language):
         text = re.sub(r'\n', '', text)
         
         # Remove puncuation
-        translator = str.maketrans('', '', string.punctuation)
-        text = text.translate(translator)
+        #translator = str.maketrans('', '', string.punctuation)
+        #text = text.translate(translator)
         
         # Remove stop words
-        text = text.split()
+        #text = text.split()
         
-        text = [word for word in text if not word in stop_words]
+        #text = [word for word in text if not word in stop_words]
         
         # Remove numbers
-        text = [re.sub(r'\w*\d\w*', '', w) for w in text]
+        #text = re.sub(r'\w*\d\w*', '', w) for w in text
         
+        #Remove links and @user_mention
+        text = re.sub(r"(?:\@|http?\://|https?\://|www)\S+", "", text)
+        
+        #Remove links
+        #text = re.sub(r'http\S+', '', text)
+        #text = re.sub(r'https\S+', '', text)
+        
+        #remove @user
+        #text = re.sub(r'\@S+', '', text)
+        
+        text = text.lstrip()
         print(r, text)
         
+        tweets.at[r, 'text'] = text
+    
+    tweets.to_pickle(data_path)
+        
+     
 
-clean_tweets('data/elonmusk_last_100.pkl','en')
+#clean_tweets('data/elonmusk_last_500.pkl','en')

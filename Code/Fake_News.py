@@ -12,6 +12,7 @@ from transformers import AutoModel, BertTokenizerFast
 bert = AutoModel.from_pretrained('bert-base-uncased')
 tokenizer = BertTokenizerFast.from_pretrained('bert-base-uncased')
 
+
 class BERT_Arch(nn.Module):
 
     def __init__(self, bert):
@@ -53,35 +54,30 @@ class BERT_Arch(nn.Module):
       x = self.softmax(x)
 
       return x
+model = BERT_Arch(bert)
 
-def fake_news_prediction(path_to_df):
-    model = BERT_Arch(bert)
+data = pd.read_pickle(r"./elonmusk_last_500.pkl")
+data2predict = data['text']
 
-    data = pd.read_pickle(path_to_df)
-    data2predict = data['text']
 
-    MAX_LENGHT = 15
-    tokens = tokenizer.batch_encode_plus(
-        data2predict.tolist(),
-        max_length = MAX_LENGHT,
-        pad_to_max_length=True,
-        truncation=True
-    )
+MAX_LENGHT = 15
+tokens = tokenizer.batch_encode_plus(
+    data2predict.tolist(),
+    max_length = MAX_LENGHT,
+    pad_to_max_length=True,
+    truncation=True
+)
 
-    seq = torch.tensor(tokens['input_ids'])
-    mask = torch.tensor(tokens['attention_mask'])
+seq = torch.tensor(tokens['input_ids'])
+mask = torch.tensor(tokens['attention_mask'])
 
-    path = 'saved_weights.pt'
-    model.load_state_dict(torch.load(path))
+path = './saved_weights.pt'
+model.load_state_dict(torch.load(path))
 
-    with torch.no_grad():
-        preds = model(seq, mask)
+with torch.no_grad():
+  preds = model(seq, mask)
 
-        preds = np.argmax(preds, axis = 1)
+preds = np.argmax(preds, axis = 1)
 
-    data['fake_news'] = preds
-    data.to_pickle(path_to_df)
-    return data
-     
-    
+data['fake_news'] = preds
 
