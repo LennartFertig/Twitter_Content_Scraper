@@ -3,6 +3,7 @@ from twitter_scraper import get_tweets
 from clean_tweets import clean_tweets
 from user_tweets_analysis import create_sentiments
 from fake_news_prediction import fake_news_prediction
+from wordcloud_creator import create_wordCloud
 
 def backend(twitter_user_name='elonmusk'):
   number_of_tweets = 500
@@ -11,6 +12,8 @@ def backend(twitter_user_name='elonmusk'):
   create_sentiments(tweets_file_path)
   fake_news_prediction(tweets_file_path)
   tweets = pd.read_pickle(tweets_file_path)
+  create_wordCloud(tweets_file_path)
+  
   print(tweets)
   
   # estimate subjectivity of user
@@ -32,9 +35,9 @@ def backend(twitter_user_name='elonmusk'):
     user_polarity = 'neutral'
   
   # estimate Fake/true news of user
-  count_fake_news = tweets.loc[tweets['fake_news'] == ].count()
+  count_fake_news = tweets.loc[tweets['fake_news'] == 1].count()
   
-  count_true_news = tweets.loc[tweets['fake_news'] == ].count()
+  count_true_news = tweets.loc[tweets['fake_news'] == 0].count()
   
   count_all_tweets = len(tweets)
   

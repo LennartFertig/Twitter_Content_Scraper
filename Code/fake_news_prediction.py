@@ -59,6 +59,7 @@ def fake_news_prediction(path_to_df):
 
     data = pd.read_pickle(path_to_df)
     data2predict = data['text']
+    data2predict = data2predict.fillna(value="")
 
     MAX_LENGHT = 15
     tokens = tokenizer.batch_encode_plus(
@@ -71,7 +72,7 @@ def fake_news_prediction(path_to_df):
     seq = torch.tensor(tokens['input_ids'])
     mask = torch.tensor(tokens['attention_mask'])
 
-    path = 'saved_weights.pt'
+    path = './Code/saved_weights.pt'
     model.load_state_dict(torch.load(path))
 
     with torch.no_grad():

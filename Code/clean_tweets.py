@@ -20,7 +20,7 @@ def clean_tweets(data_path, language='en'):
     
     for r in range(len(tweets)):
         raw_text = tweets['text'].iloc[r]
-        print(r, raw_text)
+        #print(r, raw_text)
         
         # make text lowercase
         text = raw_text.lower()
@@ -51,7 +51,7 @@ def clean_tweets(data_path, language='en'):
         #text = re.sub(r'\@S+', '', text)
         
         text = text.lstrip()
-        print(r, text)
+        #print(r, text)
         
         tweets.at[r, 'text'] = text
     
