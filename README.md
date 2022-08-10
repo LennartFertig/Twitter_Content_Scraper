@@ -25,5 +25,9 @@ pip install wordcloud
 
 ### Purpose and structure of the individual Python Files 
 1. twitter_scraper.py In this file the function ```get_tweets()``` manages the extraction of the tweets from [twitter](https://twitter.com/). For this purpose it uses the [snscrape libary](https://github.com/JustAnotherArchivist/snscrape) which can scrape tweets with almost no restriction and no Twitter API Account. The scaped tweets are then safed pandas and after the full extraction as a pickle in ```f'./data/{username}_last_{number_of_tweets}.pkl'``` 
+
 2. clean_tweets.py In this file the function ```clean_tweets()``` cleans the tweets. First it was thought to be a good idea to clean the tweets from stopwords, punctuations and numbers but instead it is now only cleaned from links and @user_mentions. If the tweet consists only out of links and/or @user_mentions the tweet is deleted and not used any further.
-3. user_tweets_analysis.py In this file the function ```create_sentiments()``` 
+
+3. user_tweets_analysis.py In this file the function ```create_sentiments()``` estimates the polarity (how negativ or positive a tweet is) and the subjectivity (how objective or subjective a tweet is). For this task the [libary Textblob](https://textblob.readthedocs.io/en/dev/) and [nltk](https://www.nltk.org/) is used bc they are lightweight and easy to implement
+
+4. backend.py In this file the function ```backend()``` combines all the previous functions and calculates the Polarity, Subjectivity, Percentage of Fake News and renders a wordcloud with the biggest topics which would then be given to the frontend
