@@ -55,6 +55,8 @@ def clean_tweets(data_path, language='en'):
         
         tweets.at[r, 'text'] = text
     
+    tweets = tweets.loc[tweets['text'] != '']
+    
     tweets.to_pickle(data_path)
         
      
