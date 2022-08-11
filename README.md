@@ -30,4 +30,10 @@ pip install wordcloud
 
 3. user_tweets_analysis.py In this file the function ```create_sentiments()``` estimates the polarity (how negativ or positive a tweet is) and the subjectivity (how objective or subjective a tweet is). For this task the [libary Textblob](https://textblob.readthedocs.io/en/dev/) and [nltk](https://www.nltk.org/) is used bc they are lightweight and easy to implement
 
-4. backend.py In this file the function ```backend()``` combines all the previous functions and calculates the Polarity, Subjectivity, Percentage of Fake News and renders a wordcloud with the biggest topics which would then be given to the frontend
+4. fake_news_prediction.py In this file the function ```fake_news_prediction()``` uses a pretrainend [BERT Model](https://huggingface.co/blog/bert-101), to predict whether or not a tweet is Fake News or not. The Model is pretrained on a Fake News Dataset in the Fake_News_Predicition.ipynb
+
+5. wordcloud_creator.py In this file the function ```create_wordCloud``` creates a Wordcloud image. The tweets are first cleaned of any topwords or punctuation using nltk. After that the Wordcloud is created through the wordcloud library.
+
+6. backend.py In this file the function ```backend()``` combines all the previous functions and calculates the Polarity, Subjectivity, Percentage of Fake News and renders a wordcloud with the biggest topics which would then be given to the frontend. For now the results are saved in the data and img directory
+
+  
