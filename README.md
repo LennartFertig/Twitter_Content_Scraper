@@ -1,9 +1,15 @@
 # Twitter_Content_Scraper
 Aktuelle Entwicklungen von Data Science Projekt
 
-Link zu Google Drive Ordner:
-https://drive.google.com/drive/u/0/folders/1sswoFbUWnrNsAgr8meHGKwgv7Ob-MPkX
+Link to Google Drive Ordner:
+https://drive.google.com/drive/u/0/folders/1sswoFbUWnrNsAgr8meHGKwgv7Ob-MPkX  
+Contains: 
+- VPC
+- data used for training BERT Model
+- Saved Weights
+- Presentation
 
+A Mockup to a potential App can be found [here](https://www.figma.com/proto/2OYBDcQMGXogOKUQumtCk0/Untitled?page-id=0%3A1&node-id=1%3A2&viewport=-3501%2C3726%2C8.51&scaling=scale-down&starting-point-node-id=1%3A2)
 ## Dokumentation
 
 ### Installation
@@ -21,7 +27,7 @@ pip install textblob
 pip install matplotlib
 pip install wordcloud
 ```
-2. Download the trained model from this gdrive and put it into the directory ```~/Twitter_Content_Scraper```
+2. Download the trained model from the Google Drive and put it into the directory ```~/Twitter_Content_Scraper/Code```
 
 ### Purpose and structure of the individual Python Files 
 1. twitter_scraper.py In this file the function ```get_tweets()``` manages the extraction of the tweets from [twitter](https://twitter.com/). For this purpose it uses the [snscrape libary](https://github.com/JustAnotherArchivist/snscrape) which can scrape tweets with almost no restriction and no Twitter API Account. The scaped tweets are then safed pandas and after the full extraction as a pickle in ```f'./data/{username}_last_{number_of_tweets}.pkl'``` 
