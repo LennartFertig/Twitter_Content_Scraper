@@ -1,6 +1,11 @@
 # Twitter_Content_Scraper
 Aktuelle Entwicklungen von Data Science Projekt
 
+Link to Prototype in Figma:
+(Click on "Check" to see second page)
+
+https://www.figma.com/proto/2OYBDcQMGXogOKUQumtCk0/Untitled?page-id=0%3A1&node-id=1%3A2&viewport=-3501%2C3726%2C8.51&scaling=scale-down&starting-point-node-id=1%3A2
+
 Link to Google Drive Ordner:
 https://drive.google.com/drive/u/0/folders/1sswoFbUWnrNsAgr8meHGKwgv7Ob-MPkX  
 Contains: 
