@@ -14,6 +14,9 @@ Contains:
 - Saved Weights
 - Presentation
 
+Link zu Präsentation:
+https://docs.google.com/presentation/d/1Lo8E3roxC5bU0iyvJ9-X2vO9JYJbJIzKxqFphfs4AJ8/edit#slide=id.g135bd44c6d9_0_753
+
 A Mockup to a potential App can be found [here](https://www.figma.com/proto/2OYBDcQMGXogOKUQumtCk0/Untitled?page-id=0%3A1&node-id=1%3A2&viewport=-3501%2C3726%2C8.51&scaling=scale-down&starting-point-node-id=1%3A2)
 ## Dokumentation
 
